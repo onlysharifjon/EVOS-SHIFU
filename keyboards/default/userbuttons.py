@@ -11,8 +11,13 @@ start_button = ReplyKeyboardMarkup(
         [KeyboardButton('📥 Savat'),
          KeyboardButton('📞 Aloqa')
          ],
-        [KeyboardButton('📨 Xabar yuborish'),
-         KeyboardButton('⚙️ Sozlamalar')]
+        [
+            KeyboardButton('📨 Xabar yuborish'),
+            KeyboardButton('⚙️ Sozlamalar')
+        ],
+        [
+            KeyboardButton('Biz haqimizda ℹ️')
+        ]
     ],
     resize_keyboard=True,
     # one_time_keyboard=True,
