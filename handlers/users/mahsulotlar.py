@@ -13,9 +13,14 @@ from keyboards.inline.mahsulotlar_inline import setlar_1, setlar_2, setlar_3, se
     garnirlar_1, garnirlar_2, garnirlar_3, garnirlar_4, garnirlar_5, garnirlar_6, garnirlar_7, garnirlar_8, garnirlar_9, \
     garnirlar_10
 
+from aiogram.dispatcher.storage import FSMContext
+
 
 @dp.message_handler(text='Combo Plus Isituvchan (Qora choy)')
-async def setlar1(message: types.Message):
+async def setlar1(message: types.Message, state: FSMContext):
+    btn = setlar_1['inline_keyboard'][0][1]
+    state_data = await state.get_data()
+    btn['text'] = state_data.get('combo1', 1)
     await message.answer_photo('AgACAgIAAxkBAAIGKWWfuHfPdQ52hyOY8bo_HCWk0BVdAAJz0jEbKnT4SFmH0C4R5RoCAQADAgADcwADNAQ',
                                reply_markup=setlar_1, caption=" Narxi: 16 000 so'm")
 
