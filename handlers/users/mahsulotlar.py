@@ -1,6 +1,8 @@
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+
 from loader import dp
 from aiogram import types
-
+from loader import bot
 from keyboards.inline.mahsulotlar_inline import setlar_1, setlar_2, setlar_3, setlar_4, setlar_5, setlar_6, setlar_7, \
     setlar_8, \
     lavash_1, lavash_2, lavash_3, lavash_4, lavash_5, lavash_6, lavash_7, \
@@ -418,3 +420,7 @@ async def garnirlar10ci(message: types.Message):
     await message.answer_photo('AgACAgIAAxkBAAIH2GWha9WtF7_HVv3Sr5dRsRDAv7ysAAIC1jEbPAABCUmEmd8LJC9mYAEAAwIAA3MAAzQE',
                                reply_markup=garnirlar_10,
                                caption=f"""Narx: 14 000 so'm""")
+
+
+# ----------------------------------------------------------------------------------------
+
