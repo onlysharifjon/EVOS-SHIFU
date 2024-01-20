@@ -14,7 +14,7 @@ from keyboards.inline.mahsulotlar_inline import setlar_1, setlar_2, setlar_3, se
     shirinliklar_1, shirinliklar_2, shirinliklar_3, shirinliklar_4, \
     garnirlar_1, garnirlar_2, garnirlar_3, garnirlar_4, garnirlar_5, garnirlar_6, garnirlar_7, garnirlar_8, garnirlar_9, \
     garnirlar_10
-
+#
 from aiogram.dispatcher.storage import FSMContext
 from .editable_buttons import userlar
 
