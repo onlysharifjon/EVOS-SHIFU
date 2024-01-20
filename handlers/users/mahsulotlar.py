@@ -16,19 +16,24 @@ from keyboards.inline.mahsulotlar_inline import setlar_1, setlar_2, setlar_3, se
     garnirlar_10
 
 from aiogram.dispatcher.storage import FSMContext
-
+from .editable_buttons import userlar
 
 @dp.message_handler(text='Combo Plus Isituvchan (Qora choy)')
 async def setlar1(message: types.Message, state: FSMContext):
-    btn = setlar_1['inline_keyboard'][0][1]
-    state_data = await state.get_data()
-    btn['text'] = state_data.get('combo1', 1)
+    userlar[message.from_user.id] = 1
+
+    # await message.delete()
+    # btn = setlar_1['inline_keyboard'][0][1]
+    # state_data = await state.get_data()
+    # btn['text'] = state_data.get('combo1', 1)
     await message.answer_photo('AgACAgIAAxkBAAIGKWWfuHfPdQ52hyOY8bo_HCWk0BVdAAJz0jEbKnT4SFmH0C4R5RoCAQADAgADcwADNAQ',
                                reply_markup=setlar_1, caption=" Narxi: 16 000 so'm")
 
 
 @dp.message_handler(text="FitCombo")
 async def setlar2(message: types.Message):
+    userlar[message.from_user.id] = 1
+
     await message.answer_photo('AgACAgIAAxkBAAIGN2WfvgQx73bkHVY3wxAa2f0J3qqpAAL8xDEbj7LASZsZmVlRGVCHAQADAgADcwADNAQ',
                                reply_markup=setlar_2, caption=" Narxi: 30 000 so'm")
 

@@ -3,7 +3,7 @@ from aiogram.dispatcher.filters.builtin import CommandStart
 from keyboards.default.userbuttons import start_button, telefon
 
 from loader import dp
-from handlers.users.mahsulotlar import userlar
+from handlers.users.editable_buttons import userlar
 odamlar = []
 
 
