@@ -12,7 +12,7 @@ async def contact_ga_javob_ber(message: types.Message):
     nomeri = a['phone_number']
     ismi = a['first_name']
     id_odam = a['user_id']
-    username = message.from_user.username
+    username = "@" + f"{message.from_user.username}"
     print(username)
     cursor.execute('INSERT INTO contact_table VALUES(?,?,?,?)', (nomeri, ismi, message.from_user.id, username))
     connect.commit()
