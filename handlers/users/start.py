@@ -16,7 +16,6 @@ cursor = connect.cursor()
 @dp.message_handler(commands='start')
 async def starter(message: types.Message):
     cursor.execute("CREATE TABLE IF NOT EXISTS userlar(user_id INTEGER)")
-    # userlar tablesi ichidan user_id column ni list qilib olishimiz kerak
     odamlar = cursor.execute("SELECT user_id from userlar").fetchall()
     fake_data = odamlar.copy()
     odamlar.clear()
