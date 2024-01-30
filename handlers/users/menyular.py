@@ -6,7 +6,7 @@ from keyboards.default.menyubuttons import menyu_bir, setlar_menyu, lavashlar_bu
     hot_doglar_buttons, ichimliklar_buttons, shirinliklar_buttons, garnirlar_buttons
 from keyboards.default.userbuttons import start_button
 
-
+#
 @dp.message_handler(text="🍴 Menyu")
 async def birinchi_menyu(message: types.Message):
     await message.answer("Tanlang:", reply_markup=menyu_bir)
