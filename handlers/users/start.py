@@ -19,15 +19,12 @@ async def starter(message: types.Message):
     # userlar tablesi ichidan user_id column ni list qilib olishimiz kerak
     odamlar = cursor.execute("SELECT user_id from userlar").fetchall()
     fake_data = odamlar.copy()
-    # print(fake_data)
-    # print(odamlar)
     odamlar.clear()
     for i in fake_data:
         odamlar.append(i[0])
     print(odamlar)
     userlar[message.from_user.id] = 1
     if message.from_user.id not in odamlar:
-
         cursor.execute(f'INSERT INTO userlar VALUES({int(message.from_user.id)})')
         connect.commit()
         odamlar.append(message.from_user.id)
