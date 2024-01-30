@@ -16,7 +16,7 @@ async def birinchi_menyu(message: types.Message):
 async def setlar8(message: Message):
     await message.answer_photo('AgACAgIAAxkBAAIGI2Wft2OarG6k791GGzKBu1AOYIxPAAJs0jEbKnT4SBDLVcPvJZVCAQADAgADcwADNAQ',
                                reply_markup=setlar_menyu)
-
+#
 
 @dp.message_handler(text='Lavash (9)')
 async def Lavash9(message: Message):
