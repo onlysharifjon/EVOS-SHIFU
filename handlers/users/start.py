@@ -3,7 +3,6 @@ from aiogram.dispatcher.filters.builtin import CommandStart
 from keyboards.default.userbuttons import start_button, telefon
 
 from loader import dp
-from handlers.users.editable_buttons import userlar
 
 odamlar = []
 
@@ -22,7 +21,6 @@ async def starter(message: types.Message):
     for i in fake_data:
         odamlar.append(i[0])
     print(odamlar)
-    userlar[message.from_user.id] = 1
     if message.from_user.id not in odamlar:
         cursor.execute(f'INSERT INTO userlar VALUES({int(message.from_user.id)})')
         connect.commit()
