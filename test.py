@@ -5,5 +5,5 @@ cursor = connect.cursor()
 
 cursor.execute("CREATE TABLE IF NOT EXISTS mahsulotlar(name TEXT,price INTEGR,image TEXT,category TEXT)")
 cursor.execute('INSERT INTO mahsulotlar VALUES (?,?,?,?)',
-               ("Kids COMBO", 24000, "Kids_COMBO.jpg", 'setlar'))
+               ("Lavash mol go'sht", 26000, "Lavash_mol_gosht.jpg", 'lavashlar'))
 connect.commit()
