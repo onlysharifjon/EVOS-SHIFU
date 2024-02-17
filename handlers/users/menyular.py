@@ -7,16 +7,23 @@ from keyboards.default.menyubuttons import menyu_bir, setlar_menyu, lavashlar_bu
 from keyboards.default.userbuttons import start_button
 
 
+#
 @dp.message_handler(text="🍴 Menyu")
 async def birinchi_menyu(message: types.Message):
     await message.answer("Tanlang:", reply_markup=menyu_bir)
 
 
+from states.state_aiogram import Bolimlar
+
+
 @dp.message_handler(text='Setlar (8)')
 async def setlar8(message: Message):
+    await Bolimlar.setlar.set()
     await message.answer_photo('AgACAgIAAxkBAAIGI2Wft2OarG6k791GGzKBu1AOYIxPAAJs0jEbKnT4SBDLVcPvJZVCAQADAgADcwADNAQ',
                                reply_markup=setlar_menyu)
 
+
+#
 
 @dp.message_handler(text='Lavash (9)')
 async def Lavash9(message: Message):
