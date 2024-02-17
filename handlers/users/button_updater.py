@@ -10,7 +10,6 @@ cursor = connect.cursor()
 @dp.callback_query_handler(text="minus", state="*")
 async def minus_update(call: types.CallbackQuery):
     print("Ishladi")
-
     cursor.execute(
         "CREATE TABLE IF NOT EXISTS korzinka(id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, mahsulot TEXT, soni INTEGER, status BOOLEAN)")
     connect.commit()
