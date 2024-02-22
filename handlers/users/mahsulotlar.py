@@ -1,21 +1,134 @@
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+
 from loader import dp
 from states.state_aiogram import Bolimlar
 from aiogram import types
 import sqlite3
 from keyboards.inline.mahsulotlar_inline import mahsulot_inline
-connect = sqlite3.connect('C:/Users/momin/PycharmProjects/EVOS-SHIFU/evos_.database.db')
-cursor = connect.cursor()
 
 
 @dp.message_handler(state=Bolimlar.setlar)
 async def setlar_funksiyasi(message: types.Message):
-    print(type(message.text))
+    connect = sqlite3.connect('C:/Users/Sharifjon/PycharmProjects/EVOS-SHIFU/evos_.database.db')
+    cursor = connect.cursor()
+    mahsulot_nomi = message.text
     mahsulot_malumotlari = cursor.execute(f"SELECT * FROM mahsulotlar WHERE name=?", (message.text,)).fetchall()
-    print(mahsulot_malumotlari)
-    # test ma`lumot [('FitCombo', 25000, 'Fit_Combo.jpg', 'setlar')]
     txt = f'''
 😋Mahsulot nomi: {mahsulot_malumotlari[0][0]}
 💸Mahsulot narxi: {mahsulot_malumotlari[0][1]}
 📃Mahsulot kategoriyasi: {mahsulot_malumotlari[0][3]}
     '''
-    await message.answer_photo(open(f'images/product_image/{mahsulot_malumotlari[0][2]}', 'rb'), caption=txt,reply_markup=mahsulot_inline)
+    await message.answer_photo(open(f'images/product_image/{mahsulot_malumotlari[0][2]}', 'rb'), caption=txt,
+                               reply_markup=mahsulot_inline)
+
+    @dp.callback_query_handler(text="pilus", state="*")
+    async def minus_update(call: types.CallbackQuery):
+        connect_ = sqlite3.connect('C:/Users/Sharifjon/PycharmProjects/EVOS-SHIFU/evos_.database.db')
+        cursor_ = connect_.cursor()
+        filter_korzinka = cursor_.execute('SELECT * FROM korzinka where mahsulot=? AND status=? AND user_id=?',
+                                          (mahsulot_nomi, 0, call.message.chat.id)).fetchone()
+
+        if filter_korzinka is None:
+            cursor_.execute('INSERT INTO korzinka (user_id, mahsulot, soni, status) VALUES (?,?,?,?)',
+                            (call.message.chat.id, mahsulot_nomi, 1, 0))
+            connect_.commit()
+            ozgargan_inline = InlineKeyboardMarkup(
+                inline_keyboard=[
+                    [
+                        InlineKeyboardButton(text='-', callback_data="minus"),
+                        InlineKeyboardButton(text=f'1', callback_data='0'),
+                        InlineKeyboardButton(text='+', callback_data="pilus")
+                    ],
+                    [
+                        InlineKeyboardButton(text="📥 Savatga qo'shish", callback_data="save")
+                    ]
+                ]
+            )
+            await call.message.edit_reply_markup(reply_markup=ozgargan_inline)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        elif filter_korzinka[0]:
+            print(filter_korzinka)
+            updater = filter_korzinka[3] + 1
+
+            cursor_.execute("UPDATE korzinka SET soni=? WHERE user_id=? AND mahsulot=? AND status= ?",
+                            (updater, call.message.chat.id, mahsulot_nomi, 0))
+            connect_.commit()
+
+            ozgargan_inline = InlineKeyboardMarkup(
+                inline_keyboard=[
+                    [
+                        InlineKeyboardButton(text='-', callback_data="minus"),
+                        InlineKeyboardButton(text=f'{updater}', callback_data='0'),
+                        InlineKeyboardButton(text='+', callback_data="pilus")
+                    ],
+                    [
+                        InlineKeyboardButton(text="📥 Savatga qo'shish", callback_data="save")
+                    ]
+                ]
+            )
+            await call.message.edit_reply_markup(reply_markup=ozgargan_inline)
+
+    @dp.callback_query_handler(text='minus', state="*")
+    async def minus(call: CallbackQuery):
+        connect_ = sqlite3.connect('C:/Users/Sharifjon/PycharmProjects/EVOS-SHIFU/evos_.database.db')
+        cursor_ = connect_.cursor()
+        filter_korzinka = cursor_.execute('SELECT * FROM korzinka where mahsulot=? AND status=? AND user_id=?',
+                                          (mahsulot_nomi, 0, call.message.chat.id)).fetchone()
+
+        if filter_korzinka is None:
+            print(True)
+            await call.answer('Buyurtma Berilmagan Mahsulot ?')
+        elif filter_korzinka[0]:
+            print(filter_korzinka)
+
+            updater = filter_korzinka[-2] - 1
+            if updater >= 0:
+                cursor_.execute("UPDATE korzinka SET soni=? WHERE user_id=? AND mahsulot=? AND status= ?",
+                                (updater, call.message.chat.id, mahsulot_nomi, 0))
+                connect_.commit()
+                ozgargan_inline = InlineKeyboardMarkup(
+                    inline_keyboard=[
+                        [
+                            InlineKeyboardButton(text='-', callback_data="minus"),
+                            InlineKeyboardButton(text=f'{updater}', callback_data='0'),
+                            InlineKeyboardButton(text='+', callback_data="pilus")
+                        ],
+                        [
+                            InlineKeyboardButton(text="📥 Savatga qo'shish", callback_data="save")
+                        ]
+                    ]
+                )
+
+                await call.message.edit_reply_markup(reply_markup=ozgargan_inline)
+            else:
+                cursor_.execute("DELETE FROM korzinka WHERE soni=0")
+                connect_.commit()
+                print(True)
+                await call.answer('Buyurtma Berilmagan Mahsulot !')
+
+
+@dp.callback_query_handler(text="save", state="*")
+async def state_save_korzinka(call: CallbackQuery):
+    user_id = call.message.chat.id
+    status = 0
+
+    connect_ = sqlite3.connect('C:/Users/Sharifjon/PycharmProjects/EVOS-SHIFU/evos_.database.db')
+    cursor_ = connect_.cursor()
+
+    kozinka = cursor_.execute('SELECT * FROM korzinka WHERE user_id=? AND status=?', (user_id, status)).fetchall()
+    for i in kozinka:
+        print(i)
+

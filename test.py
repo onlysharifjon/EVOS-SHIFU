@@ -1,14 +1,31 @@
-import sqlite3
+# import sqlite3
 
-connect = sqlite3.connect('evos_.database.db')
-cursor = connect.cursor()
+# connect = sqlite3.connect('C:/Users/Sharifjon/PycharmProjects/EVOS-SHIFU/evos_.database.db')
+# cursor = connect.cursor()
+# # cursor.execute("DROP TABLE korzinka")
 
-# cursor.execute("CREATE TABLE IF NOT EXISTS mahsulotlar(name TEXT,price INTEGR,image TEXT,category TEXT)")
-# cursor.execute("DELETE FROM mahsulotlar WHERE name='Gamburger'")
+# # Connect to the SQLite database (creates a new database if not exist)
+
+
+# # SQL query to create the table
+# create_table_query = '''
+# CREATE TABLE korzinka (
+#   id INTEGER PRIMARY KEY AUTOINCREMENT,
+#   mahsulot VARCHAR(20),
+#   user_id BIGINT NOT NULL,
+#   soni INTEGER,
+#   status INTEGER CHECK (status IN (0, 1)) -- Ensure status is either 0 or 1
+# );
+# '''
+
+# # Execute the SQL query
+# cursor.execute(create_table_query)
+
+# # Commit the changes
 # connect.commit()
-# connect.commit()
-# Gamburger,22000,Gamburger.jpg,burgerlar
-# cursor.execute('INSERT INTO mahsulotlar VALUES (?,?,?,?)', ('Gamburger', 22000, 'Gamburger.jpg', 'burgerlar'))
-# connect.commit()
-# cursor.execute(f"UPDATE mahsulotlar SET image = 'Cheese_burger.jpg' WHERE image=';Cheese_burger.jpg'");
-# connect.commit()
+
+# # Close the connection
+# connect.close()
+
+a = "51882851050058"
+print(len(a))

@@ -4,7 +4,7 @@ mahsulot_inline = InlineKeyboardMarkup(
     inline_keyboard=[
         [
             InlineKeyboardButton(text='-', callback_data="minus"),
-            InlineKeyboardButton(text='1', callback_data='0'),
+            InlineKeyboardButton(text='0', callback_data='0'),
             InlineKeyboardButton(text='+', callback_data="pilus")
         ],
         [
