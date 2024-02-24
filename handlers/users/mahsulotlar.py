@@ -1,10 +1,23 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
+from keyboards.default.userbuttons import start_button
 from loader import dp
 from states.state_aiogram import Bolimlar
 from aiogram import types
 import sqlite3
 from keyboards.inline.mahsulotlar_inline import mahsulot_inline
+
+from keyboards.default.menyubuttons import menyu_bir
+
+
+@dp.message_handler(text="🔙 Ortga qaytish", state="*")
+async def mahsulotlar(message: types.Message):
+    await message.answer('Orqaga qaytildi', reply_markup=menyu_bir)
+
+
+@dp.message_handler(text="🔙 Orqaga qaytish", state="*")
+async def mahsulotlar(message: types.Message):
+    await message.answer('Orqaga qaytildi', reply_markup=start_button)
 
 
 @dp.message_handler(state=Bolimlar.setlar)
@@ -90,14 +103,19 @@ async def setlar_funksiyasi(message: types.Message):
 
         if filter_korzinka is None:
             print(True)
+            cursor_.execute("DELETE FROM korzinka WHERE soni=0")
+            connect_.commit()
             await call.answer('Buyurtma Berilmagan Mahsulot ?')
         elif filter_korzinka[0]:
             print(filter_korzinka)
 
             updater = filter_korzinka[-2] - 1
             if updater >= 0:
+
                 cursor_.execute("UPDATE korzinka SET soni=? WHERE user_id=? AND mahsulot=? AND status= ?",
                                 (updater, call.message.chat.id, mahsulot_nomi, 0))
+                connect_.commit()
+                cursor_.execute("DELETE FROM korzinka WHERE soni=0")
                 connect_.commit()
                 ozgargan_inline = InlineKeyboardMarkup(
                     inline_keyboard=[
@@ -119,16 +137,17 @@ async def setlar_funksiyasi(message: types.Message):
                 print(True)
                 await call.answer('Buyurtma Berilmagan Mahsulot !')
 
+    @dp.callback_query_handler(text="save", state="*")
+    async def state_save_korzinka(call: CallbackQuery):
+        user_id = call.message.chat.id
+        status = 0
+        connect_ = sqlite3.connect('C:/Users/Sharifjon/PycharmProjects/EVOS-SHIFU/evos_.database.db')
+        cursor_ = connect_.cursor()
 
-@dp.callback_query_handler(text="save", state="*")
-async def state_save_korzinka(call: CallbackQuery):
-    user_id = call.message.chat.id
-    status = 0
-
-    connect_ = sqlite3.connect('C:/Users/Sharifjon/PycharmProjects/EVOS-SHIFU/evos_.database.db')
-    cursor_ = connect_.cursor()
-
-    kozinka = cursor_.execute('SELECT * FROM korzinka WHERE user_id=? AND status=?', (user_id, status)).fetchall()
-    for i in kozinka:
-        print(i)
-
+        kozinka = cursor_.execute('SELECT * FROM korzinka WHERE user_id=? AND status=? AND mahsulot=?',
+                                  (user_id, status, mahsulot_nomi)).fetchone()
+        print(kozinka)
+        cursor_.execute("UPDATE korzinka SET status=? WHERE user_id=? AND mahsulot=?", (1, kozinka[2], kozinka[1]))
+        connect_.commit()
+        await call.message.delete()
+        await call.message.answer(f'Savatchaga <b>{kozinka[1]}</b> {kozinka[3]} ta qo`shildi', parse_mode='HTML')

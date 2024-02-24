@@ -27,5 +27,5 @@
 # # Close the connection
 # connect.close()
 
-a = "51882851050058"
-print(len(a))
+# a = "51882851050058"
+# print(len(a))
