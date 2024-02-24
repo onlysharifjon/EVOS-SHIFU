@@ -19,7 +19,7 @@ from states.state_aiogram import Bolimlar
 @dp.message_handler(text='Setlar (8)')
 async def setlar8(message: Message):
     await Bolimlar.setlar.set()
-    await message.answer_photo('AgACAgIAAxkBAAIGI2Wft2OarG6k791GGzKBu1AOYIxPAAJs0jEbKnT4SBDLVcPvJZVCAQADAgADcwADNAQ',
+    await message.answer_photo(open("C:/Users/Sharifjon/PycharmProjects/EVOS-SHIFU/images/category_image/setlar(8).jpg", "rb"),
                                reply_markup=setlar_menyu)
 
 
@@ -28,7 +28,7 @@ async def setlar8(message: Message):
 @dp.message_handler(text='Lavash (9)')
 async def Lavash9(message: Message):
     await Bolimlar.setlar.set()
-    await message.answer_photo('AgACAgIAAxkBAAIGnmWhENdG-XtsjnvkFJxkqMKRqPbVAAJe0zEbPAABCUkYLpcxOXN68gEAAwIAA3MAAzQE',
+    await message.answer_photo(open("C:/Users/Sharifjon/PycharmProjects/EVOS-SHIFU/images/category_image/lavash(9).jpg", "rb"),
                                reply_markup=lavashlar_buttons)
 
 
