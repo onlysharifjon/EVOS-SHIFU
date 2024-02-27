@@ -45,7 +45,7 @@ async def Burger4(message: Message):
     await message.answer_photo(open("C:/Users/Sharifjon/PycharmProjects/EVOS-SHIFU/images/category_image/burger(4).jpg", "rb"),
                                reply_markup=burgerlar_buttons)
 
-
+#
 @dp.message_handler(text='Hot-Dog (8)')
 async def Hot_dog8(message: Message):
     await Bolimlar.setlar.set()
