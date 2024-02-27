@@ -5,3 +5,4 @@ from . import contact
 from . import menyular
 from . import mahsulotlar
 from . import button_updater
+from . import savat
