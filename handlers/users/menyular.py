@@ -85,7 +85,3 @@ async def birinchi_menyu(message: types.Message):
     await message.answer('🛒 Asosiy Menyu', reply_markup=start_button)
 
 
-# @dp.message_handler(content_types=types.ContentTypes.PHOTO)
-# async def photo(message: Message):
-#     file_id = message.photo
-#     print(file_id[0]['file_id'])
