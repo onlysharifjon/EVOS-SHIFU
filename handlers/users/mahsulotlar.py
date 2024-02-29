@@ -22,7 +22,7 @@ async def mahsulotlar(message: types.Message):
 
 @dp.message_handler(state=Bolimlar.setlar)
 async def setlar_funksiyasi(message: types.Message):
-    connect = sqlite3.connect('C:/Users/Sharifjon/PycharmProjects/EVOS-SHIFU/evos_.database.db')
+    connect = sqlite3.connect('evos_.database.db')
     cursor = connect.cursor()
     mahsulot_nomi = message.text
     mahsulot_malumotlari = cursor.execute(f"SELECT * FROM mahsulotlar WHERE name=?", (message.text,)).fetchall()
@@ -36,7 +36,7 @@ async def setlar_funksiyasi(message: types.Message):
 
     @dp.callback_query_handler(text="pilus", state="*")
     async def minus_update(call: types.CallbackQuery):
-        connect_ = sqlite3.connect('C:/Users/Sharifjon/PycharmProjects/EVOS-SHIFU/evos_.database.db')
+        connect_ = sqlite3.connect('evos_.database.db')
         cursor_ = connect_.cursor()
         filter_korzinka = cursor_.execute('SELECT * FROM korzinka where mahsulot=? AND status=? AND user_id=?',
                                           (mahsulot_nomi, 0, call.message.chat.id)).fetchone()
@@ -96,7 +96,7 @@ async def setlar_funksiyasi(message: types.Message):
 
     @dp.callback_query_handler(text='minus', state="*")
     async def minus(call: CallbackQuery):
-        connect_ = sqlite3.connect('C:/Users/Sharifjon/PycharmProjects/EVOS-SHIFU/evos_.database.db')
+        connect_ = sqlite3.connect('evos_.database.db')
         cursor_ = connect_.cursor()
         filter_korzinka = cursor_.execute('SELECT * FROM korzinka where mahsulot=? AND status=? AND user_id=?',
                                           (mahsulot_nomi, 0, call.message.chat.id)).fetchone()
@@ -141,7 +141,7 @@ async def setlar_funksiyasi(message: types.Message):
     async def state_save_korzinka(call: CallbackQuery):
         user_id = call.message.chat.id
         status = 0
-        connect_ = sqlite3.connect('C:/Users/Sharifjon/PycharmProjects/EVOS-SHIFU/evos_.database.db')
+        connect_ = sqlite3.connect('evos_.database.db')
         cursor_ = connect_.cursor()
 
         kozinka = cursor_.execute('SELECT * FROM korzinka WHERE user_id=? AND status=? AND mahsulot=?',
