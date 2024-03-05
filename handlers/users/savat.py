@@ -18,9 +18,10 @@ connect_ = sqlite3.connect('evos_.database.db')
 
 cursor_ = connect_.cursor()
 
-
+dict_ = {}
 @dp.message_handler(text='📥 Savat', state="*")
 async def svatcha(message: types.Message):
+    global umumiy_narx
     filtrcha = cursor_.execute("SELECT * FROM korzinka WHERE user_id=? AND status=?",
                                (message.from_user.id, 1)).fetchall()
     print(filtrcha)
@@ -31,19 +32,17 @@ async def svatcha(message: types.Message):
         narx_filtr = cursor_.execute('SELECT * FROM mahsulotlar WHERE name=?', (i[1],)).fetchone()
         print(narx_filtr)
 
-        count += 1
-
 
         for d in filtrcha:
-
-
             if d[1] == narx_filtr[0]:
+                count += 1
 
                 txt += f"{count}) 😋<b>{i[1]}</b>    <code>{d[-2]}</code>\n"
 
                 fake_narx = d[-2] * narx_filtr[1]
 
                 umumiy_narx += fake_narx
+    dict_[message.from_user.id] = umumiy_narx
 
     txt += f"\n\n🤑Umumiy narx: <code>{umumiy_narx}</code>"
 

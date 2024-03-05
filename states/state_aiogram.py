@@ -10,3 +10,5 @@ class Bolimlar(StatesGroup):
     ichimliklar = State()
     shirinliklar = State()
     garnirlar = State()
+
+    barcha_menyular = State()
