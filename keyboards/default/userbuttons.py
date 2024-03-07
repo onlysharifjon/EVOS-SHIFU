@@ -52,3 +52,12 @@ menu_buttons = ReplyKeyboardMarkup(
     ],
     resize_keyboard=True,
 )
+
+sozlama = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton('Ma`lumotlarni O`chirish')
+        ]
+    ],
+    resize_keyboard=True
+)

@@ -5,7 +5,7 @@ cursor = connect.cursor()
 
 
 
-cursor.execute("DELETE FROM korzinka WHERE status=0")
+cursor.execute("DELETE FROM buyurtma_tarixi WHERE buyurtmachi_id=5172746353")
 connect.commit()
-connect.close()
+
 
